@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/widgets/custom_error_widget.dart';
-import '../../../../core/widgets/custom_loading_indicator.dart';
 
 class SimilarBooksListView extends StatelessWidget {
   const SimilarBooksListView({super.key, required this.imgUrl});

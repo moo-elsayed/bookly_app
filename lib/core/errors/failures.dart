@@ -1,4 +1,3 @@
-import 'package:bookly_app/core/errors/failures.dart';
 import 'package:dio/dio.dart';
 
 abstract class Failure {

@@ -1,11 +1,9 @@
 import 'package:bookly_app/constants.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:bookly_app/features/home/presentation/widgets/book_listView_item.dart';
 import 'package:bookly_app/features/home/presentation/widgets/book_rating.dart';
 import 'package:bookly_app/features/home/presentation/widgets/custom_list_view_item.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/models/book_model/book_model.dart';

@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/utils/app_router.dart';
-import '../../../../core/widgets/custom_loading_indicator.dart';
 
 class CustomListView extends StatelessWidget {
   const CustomListView({
