@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
+
 BookModel bookModelFromJson(String str) => BookModel.fromJson(json.decode(str));
 
 String bookModelToJson(BookModel data) => json.encode(data.toJson());
 
-class BookModel {
+class BookModel extends BookEntity {
   String kind;
   String id;
   String etag;
@@ -23,7 +25,13 @@ class BookModel {
     required this.saleInfo,
     required this.accessInfo,
     this.searchInfo,
-  });
+  }) : super(
+            bookId: id,
+            image: volumeInfo.imageLinks.thumbnail,
+            title: volumeInfo.title,
+            authorName: volumeInfo.authors.first,
+            price: 0,
+            rating: volumeInfo.averageRating);
 
   factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
         kind: json["kind"],
