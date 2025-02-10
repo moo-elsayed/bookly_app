@@ -8,7 +8,6 @@ import 'package:bookly_app/simple_bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'features/home/domain/entitis/book_entity.dart';
@@ -18,7 +17,12 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   await Hive.initFlutter(); // Initialize Hive for Flutter
   Hive.registerAdapter(BookEntityAdapter()); // Register the adapter
-  await Hive.openBox<BookEntity>(KBookBox); // Open a Hive box for BookEntity
+  await Hive.openBox<BookEntity>(
+      KFeaturedBookBox); // Open a Hive box for BookEntity
+  await Hive.openBox<BookEntity>(
+      KNewestBookBox); // Open a Hive box for BookEntity
+  await Hive.openBox<BookEntity>(
+      KSimilarBookBox); // Open a Hive box for BookEntity
   runApp(const BooklyApp());
 }
 

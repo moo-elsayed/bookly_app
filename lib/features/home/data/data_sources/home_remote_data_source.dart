@@ -1,5 +1,4 @@
 import 'package:bookly_app/constants.dart';
-import 'package:hive/hive.dart';
 
 import '../../../../core/utils/api_serves.dart';
 import '../../../../core/utils/funcations/save_books.dart';
@@ -30,7 +29,7 @@ class HomeRemoteDataSourceImp extends HomeRemoteDataSource {
     var data = await apiServes.get(
         endPoint: 'volumes?Filtering=free-ebooks&q=subject:programming');
     List<BookEntity> books = getBooksList(data);
-    saveBooksData(books: books, boxName: KBookBox);
+    saveBooksData(books: books, boxName: KFeaturedBookBox);
     return books;
   }
 
@@ -40,6 +39,7 @@ class HomeRemoteDataSourceImp extends HomeRemoteDataSource {
         endPoint:
             'volumes?Filtering=free-ebooks&q=computer science&sorting=newest');
     List<BookEntity> books = getBooksList(data);
+    saveBooksData(books: books, boxName: KNewestBookBox);
     return books;
   }
 
@@ -49,6 +49,7 @@ class HomeRemoteDataSourceImp extends HomeRemoteDataSource {
         endPoint:
             'volumes?Filtering=free-ebooks&q=subject:programming&sorting=relevance');
     List<BookEntity> books = getBooksList(data);
+    saveBooksData(books: books, boxName: KSimilarBookBox);
     return books;
   }
 
