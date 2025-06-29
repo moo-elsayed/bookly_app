@@ -12,42 +12,61 @@ class ServerFailure extends Failure {
   factory ServerFailure.fromDioException(DioException dioException) {
     switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
-        return ServerFailure(errorMessage: 'Connection timeout with ApiServer');
+        return ServerFailure(errorMessage: 'Connection timeout with server');
+
       case DioExceptionType.sendTimeout:
-        return ServerFailure(errorMessage: 'Send timeout with ApiServer');
+        return ServerFailure(errorMessage: 'Send timeout with server');
+
       case DioExceptionType.receiveTimeout:
-        return ServerFailure(errorMessage: 'Receive timeout with ApiServer');
+        return ServerFailure(errorMessage: 'Receive timeout with server');
+
       case DioExceptionType.badCertificate:
-        return ServerFailure(errorMessage: 'badCertificate');
+        return ServerFailure(errorMessage: 'Bad certificate');
+
       case DioExceptionType.badResponse:
-        return ServerFailure.fromResponse(
-            dioException.hashCode, dioException.response);
+        final statusCode = dioException.response?.statusCode;
+        final responseData = dioException.response?.data;
+        return ServerFailure.fromResponse(statusCode, responseData);
+
       case DioExceptionType.cancel:
-        return ServerFailure(errorMessage: 'request was canceled');
+        return ServerFailure(errorMessage: 'Request was canceled');
+
       case DioExceptionType.connectionError:
-        if (dioException.message!.contains('SocketException')) {
+        if (dioException.message?.contains('SocketException') ?? false) {
           return ServerFailure(errorMessage: 'No internet connection');
         }
         return ServerFailure(
-            errorMessage: 'Unexpected Error, Please try again!');
-      default:
+            errorMessage: 'Unexpected error, please try again');
+
+      case DioExceptionType.unknown:
         return ServerFailure(
-            errorMessage: 'Opps There was an Error, Please try again');
+          errorMessage:
+              dioException.message ?? 'There was an error, please try again',
+        );
     }
   }
 
-  factory ServerFailure.fromResponse(int statusCode, dynamic response) {
+  factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
+    if (response == null) {
+      return ServerFailure(errorMessage: 'Unknown error occurred');
+    }
+
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(errorMessage: response['error']['message']);
+      return ServerFailure(
+        errorMessage: response['error']?['message'] ?? 'Authorization error',
+      );
     } else if (statusCode == 404) {
       return ServerFailure(
-          errorMessage: 'Your request not found, please try again');
+        errorMessage: 'Your request was not found, please try later',
+      );
     } else if (statusCode == 500) {
       return ServerFailure(
-          errorMessage: 'Internal server error, please try again');
+        errorMessage: 'Internal server error, please try later',
+      );
     } else {
       return ServerFailure(
-          errorMessage: 'Opps There was an Error, Please try again');
+        errorMessage: 'Something went wrong, please try again',
+      );
     }
   }
 }

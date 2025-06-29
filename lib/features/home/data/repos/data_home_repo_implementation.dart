@@ -4,6 +4,7 @@ import 'package:bookly_app/features/home/data/data_sources/home_remote_data_sour
 import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:bookly_app/features/home/domain/repos/home_repo.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 class DataHomeRepoImp implements DomainHomeRepo {
   final HomeRemoteDataSource homeRemoteDataSource;
@@ -24,6 +25,9 @@ class DataHomeRepoImp implements DomainHomeRepo {
         return right(books);
       }
     } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
       return left(ServerFailure(errorMessage: e.toString()));
     }
   }
@@ -40,6 +44,9 @@ class DataHomeRepoImp implements DomainHomeRepo {
         return right(books);
       }
     } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
       return left(ServerFailure(errorMessage: e.toString()));
     }
   }
@@ -58,6 +65,9 @@ class DataHomeRepoImp implements DomainHomeRepo {
         return right(books);
       }
     } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
       return left(ServerFailure(errorMessage: e.toString()));
     }
   }
