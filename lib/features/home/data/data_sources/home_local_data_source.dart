@@ -8,7 +8,7 @@ abstract class HomeLocalDataSource {
 
   List<BookEntity> fetchFeaturedBooks();
 
-  List<BookEntity> fetchSimilarBooks({required String category});
+  List<BookEntity> fetchSimilarBooks();
 }
 
 class HomeLocalDataSourceImp extends HomeLocalDataSource {
@@ -25,7 +25,7 @@ class HomeLocalDataSourceImp extends HomeLocalDataSource {
   }
 
   @override
-  List<BookEntity> fetchSimilarBooks({required String category}) {
+  List<BookEntity> fetchSimilarBooks() {
     var box = Hive.box<BookEntity>(KSimilarBookBox);
     return box.values.toList();
   }

@@ -15,14 +15,13 @@ import 'features/home/domain/entitis/book_entity.dart';
 void main() async {
   setupServiceLocator();
   Bloc.observer = SimpleBlocObserver();
-  await Hive.initFlutter(); // Initialize Hive for Flutter
-  Hive.registerAdapter(BookEntityAdapter()); // Register the adapter
-  await Hive.openBox<BookEntity>(
-      KFeaturedBookBox); // Open a Hive box for BookEntity
-  await Hive.openBox<BookEntity>(
-      KNewestBookBox); // Open a Hive box for BookEntity
-  await Hive.openBox<BookEntity>(
-      KSimilarBookBox); // Open a Hive box for BookEntity
+  await Hive.initFlutter();
+  Hive.registerAdapter(BookEntityAdapter());
+  Future.wait([
+    Hive.openBox<BookEntity>(KFeaturedBookBox),
+    Hive.openBox<BookEntity>(KNewestBookBox),
+    Hive.openBox<BookEntity>(KSimilarBookBox),
+  ]);
   runApp(const BooklyApp());
 }
 
