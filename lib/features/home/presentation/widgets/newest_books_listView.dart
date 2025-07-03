@@ -3,7 +3,6 @@ import 'package:bookly_app/features/home/presentation/manager/cubits/newest_book
 import 'package:bookly_app/features/home/presentation/widgets/book_listView_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/widgets/custom_error_widget.dart';
 import '../../../../core/widgets/custom_loading_indicator.dart';
 
@@ -22,7 +21,7 @@ class NewestBooksListView extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
-                child: BookListViewItem(bookModel: state.books[index],),
+                child: BookListViewItem(bookEntity: state.books[index]),
               );
             },
           );

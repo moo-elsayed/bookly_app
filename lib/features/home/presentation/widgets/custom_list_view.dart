@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../../core/utils/app_router.dart';
 
 class CustomListView extends StatelessWidget {
@@ -19,27 +18,29 @@ class CustomListView extends StatelessWidget {
     return BlocBuilder<FeaturedBooksCubit, FeaturedBooksStates>(
       builder: (context, state) {
         if (state is FeaturedBookSuccess) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height * (.27),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: GestureDetector(
-                      onTap: () {
-                        GoRouter.of(context).push(AppRouter.KBookDetailsView,
-                            extra: state.books[index]);
-                      },
-                      child: CustomListViewItem(
-                        imgUrl: state
-                            .books[index].volumeInfo!.imageLinks!.thumbnail!,
-                      ),
-                    ),
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * (.27),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.only(
+                  left: index == 0 ? 15 : 10,
+                  right: index == state.books.length - 1 ? 10 : 0,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.KBookDetailsView,
+                      extra: state.books[index],
+                    );
+                  },
+                  child: CustomListViewItem(
+                    imgUrl: state.books[index].image ?? '',
                   ),
-                  itemCount: state.books.length,
-                )),
+                ),
+              ),
+              itemCount: state.books.length,
+            ),
           );
         } else if (state is FeaturedBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
@@ -50,18 +51,22 @@ class CustomListView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: SizedBox(
-                  height: MediaQuery.of(context).size.height * (.27),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: CustomListViewItem(
-                        imgUrl:
-                            'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
-                      ),
+                height: MediaQuery.of(context).size.height * (.27),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => Padding(
+                    padding: EdgeInsets.only(
+                      left: index == 0 ? 15 : 10,
+                      right: index == 4 ? 10 : 0,
                     ),
-                    itemCount: 5,
-                  )),
+                    child: const CustomListViewItem(
+                      imgUrl:
+                          'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
+                    ),
+                  ),
+                  itemCount: 5,
+                ),
+              ),
             ),
           );
         }

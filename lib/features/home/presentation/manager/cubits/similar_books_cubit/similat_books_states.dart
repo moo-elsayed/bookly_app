@@ -1,4 +1,4 @@
-import 'package:bookly_app/features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 
 abstract class SimilarBooksStates {}
 
@@ -13,7 +13,7 @@ class SimilarBooksFailure extends SimilarBooksStates {
 }
 
 class SimilarBookSuccess extends SimilarBooksStates {
-  final List<BookModel> books;
+  final List<BookEntity> books;
 
   SimilarBookSuccess({required this.books});
 }

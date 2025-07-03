@@ -11,14 +11,15 @@ class CustomListViewItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: AspectRatio(
-          aspectRatio: 2.6 / 4,
-          child: CachedNetworkImage(
-            fit: BoxFit.fill,
-            imageUrl: imgUrl,
-            errorWidget: (context, url, error) => Container(
-              color: Colors.grey[600],
-            ),
-          )),
+        aspectRatio: 2.6 / 4,
+        child: CachedNetworkImage(
+          fit: BoxFit.fill,
+          imageUrl: imgUrl,
+          errorWidget: (context, url, error) => Container(
+            color: Colors.grey[600],
+          ),
+        ),
+      ),
     );
   }
 }

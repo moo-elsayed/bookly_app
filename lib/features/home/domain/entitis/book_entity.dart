@@ -16,12 +16,22 @@ class BookEntity {
   final num? price;
   @HiveField(5)
   final num? rating;
+  @HiveField(6)
+  final num? ratingCount;
+  @HiveField(7)
+  final String category;
+  @HiveField(8)
+  final String? previewLink;
 
-  BookEntity(
-      {required this.bookId,
-        required this.image,
-        required this.title,
-        required this.authorName,
-        required this.price,
-        required this.rating});
+  BookEntity({
+    required this.bookId,
+    required this.image,
+    required this.title,
+    required this.authorName,
+    required this.price,
+    required this.rating,
+    required this.ratingCount,
+    required this.category,
+    required this.previewLink,
+  });
 }

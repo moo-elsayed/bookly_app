@@ -1,12 +1,12 @@
 import 'package:bookly_app/core/utils/funcations/launch_url.dart';
 import 'package:bookly_app/core/widgets/custom_button.dart';
-import 'package:bookly_app/features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:flutter/material.dart';
 
 class BookActions extends StatelessWidget {
-  const BookActions({super.key, required this.bookModel});
+  const BookActions({super.key, required this.bookEntity});
 
-  final BookModel bookModel;
+  final BookEntity bookEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,9 @@ class BookActions extends StatelessWidget {
           Expanded(
             child: CustomButton(
               onPressed: () {
-                launchCustomUrl(context, bookModel.volumeInfo?.previewLink);
+                launchCustomUrl(context, bookEntity.previewLink);
               },
-              text: (bookModel.volumeInfo?.previewLink == null)
+              text: (bookEntity.previewLink == null)
                   ? 'Not available'
                   : 'Preview',
               borderRadius: const BorderRadius.only(

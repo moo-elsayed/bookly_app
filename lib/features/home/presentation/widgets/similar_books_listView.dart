@@ -4,7 +4,6 @@ import 'package:bookly_app/features/home/presentation/widgets/custom_list_view_i
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../../core/widgets/custom_error_widget.dart';
 
 class SimilarBooksListView extends StatelessWidget {
@@ -17,21 +16,21 @@ class SimilarBooksListView extends StatelessWidget {
     return BlocBuilder<SimilarBooksCubit, SimilarBooksStates>(
       builder: (context, state) {
         if (state is SimilarBookSuccess) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height * (.15),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: CustomListViewItem(
-                      imgUrl: state.books[index].volumeInfo!.imageLinks!.thumbnail!,
-                    ),
+          return SizedBox(
+              height: MediaQuery.of(context).size.height * (.15),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.only(
+                    left: index == 0 ? 30 : 10,
+                    right: index == state.books.length - 1 ? 10 : 0,
                   ),
-                  itemCount: state.books.length,
-                )),
-          );
+                  child: CustomListViewItem(
+                    imgUrl: state.books[index].image!,
+                  ),
+                ),
+                itemCount: state.books.length,
+              ));
         } else if (state is SimilarBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         } else {
@@ -41,18 +40,19 @@ class SimilarBooksListView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: SizedBox(
-                  height: MediaQuery.of(context).size.height * (.15),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: CustomListViewItem(
-                        imgUrl:
-                        'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
-                      ),
+                height: MediaQuery.of(context).size.height * (.15),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => const Padding(
+                    padding: EdgeInsets.only(right: 10),
+                    child: CustomListViewItem(
+                      imgUrl:
+                          'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
                     ),
-                    itemCount: 5,
-                  )),
+                  ),
+                  itemCount: 5,
+                ),
+              ),
             ),
           );
         }

@@ -6,11 +6,11 @@ import 'package:bookly_app/features/home/domain/repos/home_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-class DataHomeRepoImp implements DomainHomeRepo {
+class HomeRepoImp implements DomainHomeRepo {
   final HomeRemoteDataSource homeRemoteDataSource;
   final HomeLocalDataSource homeLocalDataSource;
 
-  DataHomeRepoImp(
+  HomeRepoImp(
       {required this.homeRemoteDataSource, required this.homeLocalDataSource});
 
   @override

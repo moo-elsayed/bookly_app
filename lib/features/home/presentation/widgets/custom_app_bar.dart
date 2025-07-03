@@ -20,13 +20,14 @@ class CustomAppBar extends StatelessWidget {
           const Image(
               image: AssetImage(AssetsData.logo), height: 80, width: 80),
           GestureDetector(
-              onTap: () {
-                GoRouter.of(context).push(AppRouter.KSearchView);
-              },
-              child: const FaIcon(
-                FontAwesomeIcons.magnifyingGlass,
-                size: 20,
-              )),
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.KSearchView);
+            },
+            child: const FaIcon(
+              FontAwesomeIcons.magnifyingGlass,
+              size: 20,
+            ),
+          ),
         ],
       ),
     );
