@@ -1,5 +1,5 @@
 import 'package:bookly_app/core/utils/service_locator.dart';
-import 'package:bookly_app/features/home/data/repos/data_home_repo_implementation.dart';
+import 'package:bookly_app/features/home/data/repos/home_repo_implementation.dart';
 import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:bookly_app/features/home/domain/use_cases/fetch_similar_books_use_case.dart';
 import 'package:bookly_app/features/home/presentation/manager/cubits/similar_books_cubit/similar_books_cubit.dart';

@@ -4,14 +4,14 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failures.dart';
 import '../repos/home_repo.dart';
 
-class FetchFeaturedBooksUseCase extends UseCase<List<BookEntity>, NoParam> {
-  final DomainHomeRepo domainHomeRepo;
+class FetchFeaturedBooksUseCase extends UseCase<List<BookEntity>, int> {
+  final HomeRepo domainHomeRepo;
 
   FetchFeaturedBooksUseCase({required this.domainHomeRepo});
 
   @override
-  Future<Either<Failure, List<BookEntity>>> call([NoParam? param]) async {
+  Future<Either<Failure, List<BookEntity>>> call([int pageNumber = 0]) async {
     // u can check permission
-    return await domainHomeRepo.fetchFeaturedBooks();
+    return await domainHomeRepo.fetchFeaturedBooks(pageNumber: pageNumber);
   }
 }

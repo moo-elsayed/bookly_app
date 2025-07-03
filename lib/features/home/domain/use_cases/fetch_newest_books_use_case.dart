@@ -7,7 +7,7 @@ import '../../../../core/errors/failures.dart';
 import '../repos/home_repo.dart';
 
 class FetchNewestBooksUseCase extends UseCase<List<BookEntity>, NoParam> {
-  final DomainHomeRepo domainHomeRepo;
+  final HomeRepo domainHomeRepo;
 
   FetchNewestBooksUseCase({required this.domainHomeRepo});
 

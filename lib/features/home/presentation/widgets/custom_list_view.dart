@@ -8,10 +8,42 @@ import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../core/utils/app_router.dart';
 
-class CustomListView extends StatelessWidget {
+class CustomListView extends StatefulWidget {
   const CustomListView({
     super.key,
   });
+
+  @override
+  State<CustomListView> createState() => _CustomListViewState();
+}
+
+class _CustomListViewState extends State<CustomListView> {
+  late ScrollController _scrollController;
+  int nextPage = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    var currentPosition = _scrollController.position.pixels;
+    var maxScrollLength = _scrollController.position.maxScrollExtent;
+
+    if (currentPosition >= 0.7 * maxScrollLength) {
+      context
+          .read<FeaturedBooksCubit>()
+          .fetchFeaturedBooks(pageNumber: nextPage++);
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +53,7 @@ class CustomListView extends StatelessWidget {
           return SizedBox(
             height: MediaQuery.of(context).size.height * (.27),
             child: ListView.builder(
+              controller: _scrollController,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(
