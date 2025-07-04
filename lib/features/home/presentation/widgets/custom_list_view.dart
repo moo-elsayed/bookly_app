@@ -1,4 +1,6 @@
+import 'package:bookly_app/core/widgets/custom_toast.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
+import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/manager/cubits/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/features/home/presentation/manager/cubits/featured_books_cubit/featured_books_states.dart';
 import 'package:bookly_app/features/home/presentation/widgets/custom_list_view_item.dart';
@@ -20,6 +22,7 @@ class CustomListView extends StatefulWidget {
 class _CustomListViewState extends State<CustomListView> {
   late ScrollController _scrollController;
   int nextPage = 1;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -28,14 +31,16 @@ class _CustomListViewState extends State<CustomListView> {
     _scrollController.addListener(_scrollListener);
   }
 
-  void _scrollListener() {
+  void _scrollListener() async {
     var currentPosition = _scrollController.position.pixels;
     var maxScrollLength = _scrollController.position.maxScrollExtent;
 
-    if (currentPosition >= 0.7 * maxScrollLength) {
-      context
+    if (currentPosition >= 0.7 * maxScrollLength && !isLoading) {
+      isLoading = true;
+      await context
           .read<FeaturedBooksCubit>()
           .fetchFeaturedBooks(pageNumber: nextPage++);
+      isLoading = false;
     }
   }
 
@@ -45,11 +50,26 @@ class _CustomListViewState extends State<CustomListView> {
     super.dispose();
   }
 
+  List<BookEntity> booksList = [];
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeaturedBooksCubit, FeaturedBooksStates>(
-      builder: (context, state) {
+    return BlocConsumer<FeaturedBooksCubit, FeaturedBooksStates>(
+      listener: (context, state) {
         if (state is FeaturedBookSuccess) {
+          booksList.addAll(state.books);
+        } else if (state is FeaturedBooksPaginationFailure) {
+          showCustomToast(
+            context: context,
+            message: state.errorMessage,
+            contentType: ContentType.failure,
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is FeaturedBookSuccess ||
+            state is FeaturedBooksPaginationLoading ||
+            state is FeaturedBooksPaginationFailure) {
           return SizedBox(
             height: MediaQuery.of(context).size.height * (.27),
             child: ListView.builder(
@@ -58,21 +78,21 @@ class _CustomListViewState extends State<CustomListView> {
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(
                   left: index == 0 ? 15 : 10,
-                  right: index == state.books.length - 1 ? 10 : 0,
+                  right: index == booksList.length - 1 ? 10 : 0,
                 ),
                 child: GestureDetector(
                   onTap: () {
                     GoRouter.of(context).push(
                       AppRouter.KBookDetailsView,
-                      extra: state.books[index],
+                      extra: booksList[index],
                     );
                   },
                   child: CustomListViewItem(
-                    imgUrl: state.books[index].image ?? '',
+                    imgUrl: booksList[index].image ?? '',
                   ),
                 ),
               ),
-              itemCount: state.books.length,
+              itemCount: booksList.length,
             ),
           );
         } else if (state is FeaturedBooksFailure) {
@@ -81,24 +101,21 @@ class _CustomListViewState extends State<CustomListView> {
           return Shimmer.fromColors(
             baseColor: Colors.grey,
             highlightColor: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * (.27),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.only(
-                      left: index == 0 ? 15 : 10,
-                      right: index == 4 ? 10 : 0,
-                    ),
-                    child: const CustomListViewItem(
-                      imgUrl:
-                          'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
-                    ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * (.27),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.only(
+                    left: index == 0 ? 15 : 10,
+                    right: index == 4 ? 10 : 0,
                   ),
-                  itemCount: 5,
+                  child: const CustomListViewItem(
+                    imgUrl:
+                        'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
+                  ),
                 ),
+                itemCount: 5,
               ),
             ),
           );
