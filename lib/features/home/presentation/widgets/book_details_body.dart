@@ -1,9 +1,9 @@
 import 'package:bookly_app/core/utils/styles.dart';
-import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/widgets/custom_appBar_book_details_view.dart';
 import 'package:bookly_app/features/home/presentation/widgets/similar_books_listView.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/entitis/book_entity.dart';
 import 'book_details_section.dart';
 
 class BookDetailsBody extends StatelessWidget {
@@ -44,10 +44,7 @@ class BookDetailsBody extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const SimilarBooksListView(
-                  imgUrl:
-                      'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
-                ),
+                const SimilarBooksListView(),
                 const SizedBox(
                   height: 40,
                 ),

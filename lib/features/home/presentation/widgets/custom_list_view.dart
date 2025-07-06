@@ -1,12 +1,12 @@
 import 'package:bookly_app/core/widgets/custom_toast.dart';
 import 'package:bookly_app/core/widgets/custom_error_widget.dart';
-import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/manager/cubits/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly_app/features/home/presentation/manager/cubits/featured_books_cubit/featured_books_states.dart';
 import 'package:bookly_app/features/home/presentation/widgets/custom_list_view_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/entitis/book_entity.dart';
 import '../../../../core/utils/app_router.dart';
 import 'loading_custom_list_view_item.dart';
 

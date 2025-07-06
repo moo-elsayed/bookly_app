@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/widgets/custom_fading_widget.dart';
-import '../../../../core/widgets/skeleton_box.dart';
+import 'custom_fading_widget.dart';
+import 'skeleton_box.dart';
 
 class LoadingBookListViewItem extends StatelessWidget {
   const LoadingBookListViewItem({super.key});

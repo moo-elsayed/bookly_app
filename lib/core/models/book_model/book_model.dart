@@ -1,4 +1,4 @@
-import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
+import 'package:bookly_app/core/entitis/book_entity.dart';
 import 'package:equatable/equatable.dart';
 
 import 'access_info.dart';

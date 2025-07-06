@@ -1,4 +1,5 @@
-import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
+
+import '../../../../../../core/entitis/book_entity.dart';
 
 abstract class NewestBooksStates {}
 

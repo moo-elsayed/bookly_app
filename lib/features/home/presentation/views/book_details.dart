@@ -1,8 +1,9 @@
-import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/manager/cubits/similar_books_cubit/similar_books_cubit.dart';
 import 'package:bookly_app/features/home/presentation/widgets/book_details_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/entitis/book_entity.dart';
 
 class BookDetails extends StatefulWidget {
   const BookDetails({super.key, required this.bookEntity});

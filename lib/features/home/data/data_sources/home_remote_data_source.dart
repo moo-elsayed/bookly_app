@@ -1,8 +1,9 @@
 import 'package:bookly_app/constants.dart';
+import '../../../../core/entitis/book_entity.dart';
+import '../../../../core/models/book_model/book_model.dart';
 import '../../../../core/utils/api_serves.dart';
+import '../../../../core/utils/funcations/get_books_list.dart';
 import '../../../../core/utils/funcations/save_books.dart';
-import '../../domain/entitis/book_entity.dart';
-import '../models/book_model/book_model.dart';
 
 abstract class HomeRemoteDataSource {
   /*
@@ -47,17 +48,8 @@ class HomeRemoteDataSourceImp extends HomeRemoteDataSource {
   Future<List<BookEntity>> fetchSimilarBooks({required String category}) async {
     var data = await apiServes.get(
         endPoint:
-            'volumes?Filtering=free-ebooks&q=subject:programming&sorting=relevance');
+            'volumes?Filtering=free-ebooks&q=subject:$category&sorting=relevance');
     List<BookEntity> books = getBooksList(data);
-    saveBooksData(books: books, boxName: KSimilarBookBox);
-    return books;
-  }
-
-  List<BookEntity> getBooksList(Map<String, dynamic> data) {
-    List<BookEntity> books = [];
-    for (var item in data['items']) {
-      books.add(BookModel.fromJson(item));
-    }
     return books;
   }
 }

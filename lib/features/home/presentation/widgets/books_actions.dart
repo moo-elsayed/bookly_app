@@ -1,7 +1,8 @@
 import 'package:bookly_app/core/utils/funcations/launch_url.dart';
 import 'package:bookly_app/core/widgets/custom_button.dart';
-import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/entitis/book_entity.dart';
 
 class BookActions extends StatelessWidget {
   const BookActions({super.key, required this.bookEntity});

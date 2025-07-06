@@ -5,4 +5,4 @@ const KTransitionDuration = Duration(seconds: 2);
 const KGtSectraFineFont = 'GT Sectra Fine Regular';
 const KFeaturedBookBox = 'featured_box';
 const KNewestBookBox = 'newest_box';
-const KSimilarBookBox = 'similar_box';
+

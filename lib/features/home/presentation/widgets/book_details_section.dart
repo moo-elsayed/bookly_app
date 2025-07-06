@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import '../../../../core/entitis/book_entity.dart';
 import '../../../../core/utils/styles.dart';
-import '../../domain/entitis/book_entity.dart';
 import 'book_rating.dart';
 import 'books_actions.dart';
 import 'custom_book_details_image.dart';

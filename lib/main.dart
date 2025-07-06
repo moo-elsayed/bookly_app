@@ -11,8 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 
+import 'core/entitis/book_entity.dart';
 import 'features/home/data/repos/home_repo_implementation.dart';
-import 'features/home/domain/entitis/book_entity.dart';
 
 void main() async {
   Bloc.observer = SimpleBlocObserver();
@@ -25,7 +25,6 @@ void main() async {
   await Future.wait([
     Hive.openBox<BookEntity>(KFeaturedBookBox),
     Hive.openBox<BookEntity>(KNewestBookBox),
-    Hive.openBox<BookEntity>(KSimilarBookBox),
   ]);
   runApp(const BooklyApp());
 }
