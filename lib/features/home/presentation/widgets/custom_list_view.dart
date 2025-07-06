@@ -7,8 +7,8 @@ import 'package:bookly_app/features/home/presentation/widgets/custom_list_view_i
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../core/utils/app_router.dart';
+import 'loading_custom_list_view_item.dart';
 
 class CustomListView extends StatefulWidget {
   const CustomListView({
@@ -98,25 +98,20 @@ class _CustomListViewState extends State<CustomListView> {
         } else if (state is FeaturedBooksFailure) {
           return CustomErrorWidget(errorMessage: state.errorMessage);
         } else {
-          return Shimmer.fromColors(
-            baseColor: Colors.grey,
-            highlightColor: Colors.white,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * (.27),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Padding(
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * (.27),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                return Padding(
                   padding: EdgeInsets.only(
                     left: index == 0 ? 15 : 10,
-                    right: index == 4 ? 10 : 0,
+                    right: index == 6 - 1 ? 10 : 0,
                   ),
-                  child: const CustomListViewItem(
-                    imgUrl:
-                        'https://th.bing.com/th/id/OIP.dWqMA2-SRXYl4PNmln7ZrgHaE8?rs=1&pid=ImgDetMain',
-                  ),
-                ),
-                itemCount: 5,
-              ),
+                  child: const LoadingCustomListViewItem(),
+                );
+              },
             ),
           );
         }

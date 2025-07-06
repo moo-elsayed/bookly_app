@@ -11,7 +11,7 @@ abstract class HomeRemoteDataSource {
   هو بيعمل fetch للبيانات وبس
   */
 
-  Future<List<BookEntity>> fetchNewestBooks();
+  Future<List<BookEntity>> fetchNewestBooks({int pageNumber = 0});
 
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber = 0});
 
@@ -27,17 +27,17 @@ class HomeRemoteDataSourceImp extends HomeRemoteDataSource {
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber = 0}) async {
     var data = await apiServes.get(
         endPoint:
-            'volumes?Filtering=free-ebooks&q=subject:programming&startIndex=${pageNumber*10}');
+            'volumes?Filtering=free-ebooks&q=subject:programming&startIndex=${pageNumber * 10}');
     List<BookEntity> books = getBooksList(data);
     saveBooksData(books: books, boxName: KFeaturedBookBox);
     return books;
   }
 
   @override
-  Future<List<BookEntity>> fetchNewestBooks() async {
+  Future<List<BookEntity>> fetchNewestBooks({int pageNumber = 0}) async {
     var data = await apiServes.get(
         endPoint:
-            'volumes?Filtering=free-ebooks&q=computer science&sorting=newest');
+            'volumes?Filtering=free-ebooks&q=programming&sorting=newest&startIndex=${pageNumber * 10}');
     List<BookEntity> books = getBooksList(data);
     saveBooksData(books: books, boxName: KNewestBookBox);
     return books;

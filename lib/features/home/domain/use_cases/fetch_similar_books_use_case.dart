@@ -1,19 +1,17 @@
 import 'package:bookly_app/core/use_cases/use_case.dart';
 import 'package:bookly_app/features/home/domain/entitis/book_entity.dart';
 import 'package:dartz/dartz.dart';
-
 import '../../../../core/errors/failures.dart';
-
 import '../repos/home_repo.dart';
 
 class FetchSimilarBooksUseCase extends UseCase<List<BookEntity>, String> {
-  final HomeRepo domainHomeRepo;
+  final HomeRepo homeRepo;
 
-  FetchSimilarBooksUseCase({required this.domainHomeRepo});
+  FetchSimilarBooksUseCase({required this.homeRepo});
 
   @override
   Future<Either<Failure, List<BookEntity>>> call([String? param]) async {
     // u can check permission
-    return await domainHomeRepo.fetchSimilarBooks(category: param!);
+    return await homeRepo.fetchSimilarBooks(category: param!);
   }
 }

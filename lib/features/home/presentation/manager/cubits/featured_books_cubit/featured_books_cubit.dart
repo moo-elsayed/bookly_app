@@ -19,7 +19,8 @@ class FeaturedBooksCubit extends Cubit<FeaturedBooksStates> {
         pageNumber == 0
             ? FeaturedBooksFailure(errorMessage: failure.errorMessage)
             : FeaturedBooksPaginationFailure(
-                errorMessage: failure.errorMessage),
+                errorMessage: failure.errorMessage,
+              ),
       ),
       (books) => emit(
         FeaturedBookSuccess(books: books),

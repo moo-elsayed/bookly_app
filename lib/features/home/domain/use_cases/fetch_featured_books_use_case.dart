@@ -5,13 +5,13 @@ import '../../../../core/errors/failures.dart';
 import '../repos/home_repo.dart';
 
 class FetchFeaturedBooksUseCase extends UseCase<List<BookEntity>, int> {
-  final HomeRepo domainHomeRepo;
+  final HomeRepo homeRepo;
 
-  FetchFeaturedBooksUseCase({required this.domainHomeRepo});
+  FetchFeaturedBooksUseCase({required this.homeRepo});
 
   @override
   Future<Either<Failure, List<BookEntity>>> call([int pageNumber = 0]) async {
     // u can check permission
-    return await domainHomeRepo.fetchFeaturedBooks(pageNumber: pageNumber);
+    return await homeRepo.fetchFeaturedBooks(pageNumber: pageNumber);
   }
 }

@@ -29,7 +29,7 @@ abstract class AppRouter {
         builder: (context, state) => BlocProvider(
           create: (context) => SimilarBooksCubit(
             FetchSimilarBooksUseCase(
-              domainHomeRepo: getIt.get<HomeRepoImp>(),
+              homeRepo: getIt.get<HomeRepoImp>(),
             ),
           ),
           child: BookDetails(bookEntity: state.extra as BookEntity),
